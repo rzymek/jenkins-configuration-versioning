@@ -1,8 +1,9 @@
 #!/bin/bash
-
+# https://github.com/rzymek/jenkins-configuration-versioning
 # Jenkins Configuraitons Directory
 cd $JENKINS_HOME
 
+git init #Running git init in an existing repository is safe
 # Add general configurations, job configurations, and user content
 git add -- *.xml jobs/*/*.xml userContent/*
 
@@ -22,6 +23,11 @@ if [ -n "$to_remove" ]; then
     git rm --ignore-unmatch $to_remove
 fi
 
-git commit -m "Automated Jenkins commit"
+git config user.name "Jenkins"
+git config user.email "jenkins@`hostname`"
+git commit -m "Automated Jenkins commit" 
 
-git push -q
+#Setup remote using
+# git remote add origin [url]
+#Then uncomment:
+# git push -q origin master
